@@ -28,3 +28,28 @@ bool isprime(int n) {
     return true;
 } 
 
+// 矩阵 
+struct Matric {
+    int sz;
+    int a[maxn][maxn];
+    Matric(int s = 0) {
+        sz = s; memset(a, 0, sizeof a);
+    }
+    void operator = (const Matric& t) {
+        sz = t.sz; memcpy(a, t.a, sizeof a);
+    }
+    Matric operator * (const Matric& t) {
+        Matric res = Matric(sz);
+        for (int i = 0; i < sz; i++) {
+            for (int k = 0; k < sz; k++) {
+                if (!a[i][k]) continue;
+                for (int j = 0; j < sz; j++) {
+                    res.a[i][j] += a[i][k] * t.a[k][j];
+                    if (res.a[i][j] >= mod) res.a[i][j] -= mod;
+                }
+            }
+        }
+        return res;
+    }
+}
+
